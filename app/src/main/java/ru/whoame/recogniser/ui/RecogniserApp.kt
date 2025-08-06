@@ -4,29 +4,30 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.koin.androidx.compose.koinViewModel
 import ru.whoame.recogniser.ui.theme.RecogniserTheme
 
-@DarkLightPreviews
 @Composable
-fun RecogniserApp() = RecogniserTheme {
-    Scaffold { innerPaddings ->
-        Greeting("world", Modifier.padding(innerPaddings))
-    }
+fun RecogniserApp(
+    viewModel: RecogniserAppViewModel = koinViewModel(),
+) {
+    val name by viewModel.stateFlow.collectAsStateWithLifecycle()
+    RecogniserAppStateless(name)
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+private fun RecogniserAppStateless(name: String) = Scaffold { innerPaddings ->
     Text(
         text = "Hello $name!",
-        modifier = modifier,
+        modifier = Modifier.padding(innerPaddings),
     )
 }
 
 @DarkLightPreviews
 @Composable
-fun GreetingPreview() {
-    RecogniserTheme {
-        Greeting("Android")
-    }
+private fun RecogniserAppPreview() = RecogniserTheme {
+    RecogniserAppStateless("World")
 }

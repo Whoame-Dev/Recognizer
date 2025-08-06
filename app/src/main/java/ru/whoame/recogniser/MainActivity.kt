@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import ru.whoame.recogniser.ui.RecogniserApp
+import ru.whoame.recogniser.ui.theme.RecogniserTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -12,7 +13,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            RecogniserApp()
+            RecogniserTheme {
+                RecogniserApp()
+            }
         }
     }
 

@@ -1,8 +1,10 @@
 package ru.whoame.recogniser.model
 
-import org.threeten.bp.LocalDate
+import androidx.compose.runtime.Immutable
+import org.threeten.bp.LocalDateTime
 
+@Immutable
 data class RecognisedObject(
     val title: String,
-    val date: LocalDate,
+    val date: LocalDateTime,
 )
