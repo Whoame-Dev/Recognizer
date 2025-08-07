@@ -3,4 +3,6 @@
 
     <string name="app_name">Recogniser</string>
 
+    <string name="back_content_description">back</string>
+
 </resources>
