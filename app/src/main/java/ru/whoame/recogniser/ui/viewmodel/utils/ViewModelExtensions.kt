@@ -27,7 +27,7 @@ fun <SideEffect : Any> StateMachineViewModel<*, *, SideEffect, *, *>.collectSide
 
     LaunchedEffect(sideEffectFlow, lifecycleOwner) {
         lifecycleOwner.lifecycle.repeatOnLifecycle(lifecycleState) {
-            sideEffectFlow.collect { callback(it) }
+            sideEffectFlow.collect { effect -> callback(effect) }
         }
     }
 }

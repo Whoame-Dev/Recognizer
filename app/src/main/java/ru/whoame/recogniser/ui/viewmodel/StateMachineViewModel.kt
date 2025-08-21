@@ -16,7 +16,6 @@ import ru.whoame.recogniser.ui.viewmodel.utils.TransactionSenderDslMarker
 import ru.whoame.recogniser.utils.flowOf
 import kotlin.coroutines.CoroutineContext
 
-@OptIn(ExperimentalCoroutinesApi::class)
 /**
  * Abstract base ViewModel implementing a state machine architecture for managing UI logic in a reactive and scalable way.
  *
@@ -47,6 +46,7 @@ import kotlin.coroutines.CoroutineContext
  *
  * All event/state mutations are channelled through transactions, ensuring single-source-of-truth state management and serialization of side effects/events.
  **/
+@OptIn(ExperimentalCoroutinesApi::class)
 abstract class StateMachineViewModel<UiState : Any, State : Any, SideEffect : Any, UiEvent : Any, DomainEvent : Any>(
     defaultsFactory: BaseDefaultsFactory<State, DomainEvent>,
     stateFactory: BaseStateFactory<State, UiState>,
