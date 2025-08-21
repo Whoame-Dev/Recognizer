@@ -5,6 +5,7 @@ import org.threeten.bp.LocalDateTime
 
 @Immutable
 data class RecognisedObject(
+    val id: Int,
     val title: String,
     val date: LocalDateTime,
 )
