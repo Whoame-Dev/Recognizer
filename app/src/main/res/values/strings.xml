@@ -3,6 +3,29 @@
 
     <string name="app_name">Recogniser</string>
 
-    <string name="back_content_description">back</string>
+    <!-- Common action -->
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+
+    <!-- Animation label -->
+    <string name="shimmer_transition_label">Shimmer transition</string>
+    <string name="shimmer_loading_label">Shimmer animation</string>
+    <string name="expand_arrow_rotation_animation_label">rotationAnimation</string>
+    <string name="slide_in_out_animation_label">rotationAnimation</string>
+
+    <!-- Content description -->
+    <string name="back_content_description">Back icon</string>
+    <string name="delete_item_content_description">Delete item</string>
+
+    <!-- Recognised object list-->
+    <string name="recognised_object_list_title">Recognised items</string>
+    <string name="recognised_object_list_empty_title">There\'s nothing here</string>
+    <string name="recognised_object_list_empty_message">Recognise something first</string>
+    <string name="recognised_object_list_error_title">Something went wrong</string>
+    <string name="recognised_object_list_error_message">Try reinstalling the application or deleting data</string>
+
+    <!-- Delete recognised item dialog -->
+    <string name="delete_recognised_item_dialog_title">Deleting a saved item</string>
+    <string name="delete_recognised_item_dialog_text">You\'re about to delete \"%1$s\". Are you sure?</string>
 
 </resources>
