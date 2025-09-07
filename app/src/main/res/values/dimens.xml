@@ -4,7 +4,7 @@
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_medium">16dp</dimen>
 
-    <dimen name="card_elevation">3dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
 
     <dimen name="folded_image_height">150dp</dimen>
     <dimen name="folded_image_foreground_height">50dp</dimen>

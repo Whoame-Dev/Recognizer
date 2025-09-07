@@ -172,7 +172,7 @@ private fun ExpandedScreenContent(
             .fillMaxSize()
             .animateContentSize(animationSpec = commonSizeAnimationSpec),
     ) {
-        val columnMaxWidth = if (showAnimatedCard) { // Use the state that controls the animation
+        val columnMaxWidth = if (showAnimatedCard) {
             R.dimen.recognised_object_lazy_column_expanded_max_width
         } else {
             R.dimen.recognised_object_lazy_column_medium_max_width
@@ -184,18 +184,18 @@ private fun ExpandedScreenContent(
             modifier = Modifier.width(dimensionResource(columnMaxWidth)),
         )
         AnimatedVisibility(
-            visible = showAnimatedCard, // Manage visibility with this state
+            visible = showAnimatedCard,
             enter = slideInHorizontally(
                 initialOffsetX = { fullWidth -> fullWidth },
             ) + expandIn(
-                animationSpec = commonSizeAnimationSpec, // We use the general specification
+                animationSpec = commonSizeAnimationSpec,
                 expandFrom = Alignment.CenterStart,
                 initialSize = { size -> IntSize(0, size.height) },
             ) + fadeIn(),
             exit = slideOutHorizontally(
                 targetOffsetX = { fullWidth -> fullWidth },
             ) + shrinkOut(
-                animationSpec = commonSizeAnimationSpec, // We use the general specification
+                animationSpec = commonSizeAnimationSpec,
                 shrinkTowards = Alignment.CenterStart,
                 targetSize = { size -> IntSize(0, size.height) },
             ) + fadeOut(),
@@ -203,12 +203,9 @@ private fun ExpandedScreenContent(
         ) {
             Row {
                 Spacer(Modifier.width(dimensionResource(R.dimen.padding_medium)))
-                // USE itemToAnimate!
-                // This value will persist even when currentSelectedItem is already null,
-                // allowing AnimatedVisibility to complete the animation.
                 itemToAnimate?.let { model ->
                     RecognisedObjectCard(
-                        model = model, // Transfer the model that was active BEFORE the disappearance
+                        model = model,
                         state = RecognisedObjectCardState.EXPAND,
                         onClick = {
                             onItemClick.invoke(null)

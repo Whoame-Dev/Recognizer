@@ -1,5 +1,6 @@
 package ru.whoame.recogniser.ui.composable.recognisedobjectcard
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
@@ -19,6 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntSize
 import ru.whoame.recogniser.R
 import ru.whoame.recogniser.ui.DarkLightPreviews
 import ru.whoame.recogniser.ui.composable.model.RecognisedObjectUiModel
@@ -28,10 +30,6 @@ import ru.whoame.recogniser.utils.shimmerLoading
 
 /**
  * UI state of `RecognisedObjectCard`.
- *
- * - `FOLD`: Compact view showing image and brief info.
- * - `LOAD`: Loading state with shimmer placeholders.
- * - `EXPAND`: Expanded view showing full-size image and details.
  **/
 enum class RecognisedObjectCardState {
 
@@ -68,66 +66,32 @@ fun RecognisedObjectCard(
 ) {
     val isExpanded = state == RecognisedObjectCardState.EXPAND
     val isLoading = state == RecognisedObjectCardState.LOAD
-    val columnModifier = if (isExpanded) {
-        Modifier.fillMaxSize()
-    } else {
-        Modifier
+
+    val springSpec = spring<IntSize>(
+        dampingRatio = Spring.DampingRatioLowBouncy,
+        stiffness = Spring.StiffnessMedium,
+    )
+    val columnModifier = when {
+        isLoading -> Modifier.shimmerLoading()
+        isExpanded -> Modifier.fillMaxSize()
+        else -> Modifier
     }
         .clickable(onClick = onClick)
-        .animateContentSize(
-            animationSpec = spring(
-                dampingRatio = Spring.DampingRatioLowBouncy,
-                stiffness = Spring.StiffnessMedium,
-            ),
-        )
-        .let { localModifier ->
-            if (isLoading) localModifier.shimmerLoading() else localModifier
-        }
+        .animateContentSize(animationSpec = springSpec)
     Column(modifier = columnModifier) {
-        val imageBoxModifier = if (isExpanded) {
+        val imageWithGradientModifier = if (isExpanded) {
             Modifier
                 .fillMaxSize()
                 .weight(1f)
         } else {
             Modifier.fillMaxWidth()
         }
-        Box(imageBoxModifier) {
-            Image(
-                painter = painterResource(model.image),
-                contentDescription = null,
-                contentScale = if (isExpanded) ContentScale.Fit else ContentScale.Crop,
-                modifier = if (isExpanded) {
-                    Modifier.matchParentSize()
-                } else {
-                    Modifier
-                        .fillMaxWidth()
-                        .height(dimensionResource(R.dimen.folded_image_height))
-                        .let {
-                            if (isLoading) {
-                                it.shimmerLoading()
-                            } else {
-                                it
-                            }
-                        }
-                },
-            )
 
-            if (!isExpanded) {
-                val gradient = Brush.verticalGradient(
-                    colors = listOf(
-                        Transparent,
-                        MaterialTheme.colorScheme.surfaceContainerHighest,
-                    ),
-                )
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(dimensionResource(R.dimen.folded_image_foreground_height))
-                        .align(Alignment.BottomCenter)
-                        .background(gradient),
-                )
-            }
-        }
+        RecognisedObjectImage(
+            image = model.image,
+            isExpanded = isExpanded,
+            modifier = imageWithGradientModifier,
+        )
 
         DescriptionRow(
             title = model.title,
@@ -135,6 +99,53 @@ fun RecognisedObjectCard(
             isExpanded = isExpanded,
             modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium)),
         )
+    }
+}
+
+/**
+ * Displays an image with an optional gradient overlay at the bottom.
+ *
+ * The image adapts its size and scaling behavior based on the expansion state:
+ * - When expanded: fills the parent size with fit scaling to maintain aspect ratio
+ * - When folded: has fixed height with crop scaling and a gradient overlay at bottom
+ *
+ * @param image Drawable resource ID for the image to display.
+ * @param isExpanded Whether the parent card is in expanded state, affecting image size and scaling.
+ * @param modifier Optional modifier for the container Box.
+ **/
+@Composable
+private fun RecognisedObjectImage(
+    @DrawableRes image: Int,
+    isExpanded: Boolean,
+    modifier: Modifier = Modifier,
+) = Box(modifier) {
+    val imageModifier = if (isExpanded) {
+        Modifier.matchParentSize()
+    } else {
+        Modifier
+            .fillMaxWidth()
+            .height(dimensionResource(R.dimen.folded_image_height))
+    }
+    Image(
+        painter = painterResource(image),
+        contentDescription = null,
+        contentScale = if (isExpanded) ContentScale.Fit else ContentScale.Crop,
+        modifier = imageModifier,
+    )
+
+    if (!isExpanded) {
+        val gradient = Brush.verticalGradient(
+            colors = listOf(
+                Transparent,
+                MaterialTheme.colorScheme.surfaceContainerHighest,
+            ),
+        )
+        val spacerModifier = Modifier
+            .fillMaxWidth()
+            .height(height = dimensionResource(R.dimen.folded_image_foreground_height))
+            .align(Alignment.BottomCenter)
+            .background(brush = gradient)
+        Spacer(modifier = spacerModifier)
     }
 }
 
@@ -205,6 +216,30 @@ private fun RecognisedObjectCardLoadingPreview() = RecogniserTheme {
             model = RecognisedObjectUiModel(0, R.drawable.image_placeholder, "One", "01.01.2010"),
             state = RecognisedObjectCardState.LOAD,
             onClick = {},
+        )
+    }
+}
+
+@DarkLightPreviews
+@Composable
+private fun RecognisedObjectImageFoldedPreview() = RecogniserTheme {
+    Surface {
+        RecognisedObjectImage(
+            image = R.drawable.image_placeholder,
+            isExpanded = false,
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
+}
+
+@DarkLightPreviews
+@Composable
+private fun RecognisedObjectImageExpandedPreview() = RecogniserTheme {
+    Surface {
+        RecognisedObjectImage(
+            image = R.drawable.image_placeholder,
+            isExpanded = true,
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }
