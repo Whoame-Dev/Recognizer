@@ -24,7 +24,7 @@ sealed interface Resource<out T> {
 
 fun <T> T.toResource(): Resource<T> = Resource.Data(this)
 
-inline fun <T, R> Resource<T>.map(crossinline block: (T) -> R): Resource<R> = when (this) {
+fun <T, R> Resource<T>.map(block: (T) -> R): Resource<R> = when (this) {
     is Resource.Loading -> Resource.Loading(timestamp)
     is Resource.Data -> Resource.Data(
         value = block.invoke(value),
@@ -33,13 +33,3 @@ inline fun <T, R> Resource<T>.map(crossinline block: (T) -> R): Resource<R> = wh
 
     is Resource.Error -> Resource.Loading(timestamp)
 }
-
-inline fun <T> Resource<List<T>>.filter(crossinline predicate: (T) -> Boolean): Resource<List<T>> = map { values ->
-    values.filter(predicate)
-}
-
-fun <T> Resource<T>.valueOrDefault(defaultValue: T): T = (this as? Resource.Data)?.value ?: defaultValue
-
-fun <T> Resource<T>.valueOrNull(defaultValue: T? = null): T? = (this as? Resource.Data)?.value ?: defaultValue
-
-fun Resource<*>.isLoading(): Boolean = this is Resource.Loading
