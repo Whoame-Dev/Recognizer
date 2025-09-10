@@ -1,14 +1,19 @@
 package ru.whoame.recogniser
 
+import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import ru.whoame.recogniser.data.database.databaseModule
 import ru.whoame.recogniser.data.datasource.datasourceModule
 import ru.whoame.recogniser.data.repository.repositoryModule
 import ru.whoame.recogniser.ui.RecogniserAppViewModel
+import ru.whoame.recogniser.ui.screen.recognisedlist.RecognisedListViewModel
+import ru.whoame.recogniser.ui.screen.recognisedlist.state.factory.ListScreenDefaultsFactory
+import ru.whoame.recogniser.ui.screen.recognisedlist.state.factory.ListScreenStateFactory
+import ru.whoame.recogniser.ui.screen.recognisedlist.state.handler.ListScreenDomainEventHandler
+import ru.whoame.recogniser.ui.screen.recognisedlist.state.handler.ListScreenUiEventHandler
 
 val appModule = module {
-
     includes(
         databaseModule,
         datasourceModule,
@@ -16,5 +21,12 @@ val appModule = module {
     )
 
     viewModelOf(::RecogniserAppViewModel)
-
+    viewModel {
+        RecognisedListViewModel(
+            defaultsFactory = ListScreenDefaultsFactory(),
+            stateFactory = ListScreenStateFactory(),
+            uiEventHandler = ListScreenUiEventHandler(),
+            domainEventHandler = ListScreenDomainEventHandler(get()),
+        )
+    }
 }

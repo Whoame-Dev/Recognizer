@@ -1,45 +1,53 @@
 package ru.whoame.recogniser.data.datasource
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import ru.whoame.recogniser.data.database.RecognisedObjectDao
 import ru.whoame.recogniser.model.RecognisedObject
-import ru.whoame.recogniser.utils.flowOf
 
-class RecognisedObjectLocalDatasourceImpl(
-    private val dao: RecognisedObjectDao,
-) : RecognisedObjectLocalDatasource {
-
-    override fun getAll(): Flow<List<RecognisedObject>> = flowOf { dao.getAll() }
-        .flowOn(Dispatchers.IO)
-        .map { list -> list.toUiModel() }
-
-    override fun saveAll(
-        recognisedObjects: List<RecognisedObject>,
-    ): Flow<Unit> = flowOf { recognisedObjects.toEntity() }
-        .map { list -> dao.insertAll(list) }
-        .flowOn(Dispatchers.IO)
-
-    override fun save(recognisedObject: RecognisedObject): Flow<Unit> = flowOf { recognisedObject.toEntity() }
-        .map { entity -> dao.insert(entity) }
-        .flowOn(Dispatchers.IO)
-
-    override fun delete(recognisedObject: RecognisedObject): Flow<Unit> = flowOf { recognisedObject.toEntity() }
-        .map { entity -> dao.delete(entity) }
-        .flowOn(Dispatchers.IO)
-
-}
-
+/**
+ * Local data source for persisting and observing recognised objects.
+ *
+ * Implementations are expected to interact with on-device storage
+ * such as a database or shared preferences.
+ **/
 interface RecognisedObjectLocalDatasource {
 
+    /**
+     * Stream all recognised objects stored locally.
+     *
+     * @return a [Flow] that emits the current list of [RecognisedObject].
+     **/
     fun getAll(): Flow<List<RecognisedObject>>
 
+    /**
+     * Persist a collection of recognised objects.
+     *
+     * @param recognisedObjects the objects to save
+     * @return a [Flow] that completes when the operation finishes.
+     **/
     fun saveAll(recognisedObjects: List<RecognisedObject>): Flow<Unit>
 
+    /**
+     * Persist a single recognised object.
+     *
+     * @param recognisedObject the object to save
+     * @return a [Flow] that completes when the operation finishes.
+     **/
     fun save(recognisedObject: RecognisedObject): Flow<Unit>
 
+    /**
+     * Remove the given recognised object from local storage.
+     *
+     * @param recognisedObject the object to delete
+     * @return a [Flow] that completes when the operation finishes.
+     **/
     fun delete(recognisedObject: RecognisedObject): Flow<Unit>
+
+    /**
+     * Remove recognised object from local storage by id.
+     *
+     * @param id object id to delete
+     * @return a [Flow] that completes when the operation finishes.
+     **/
+    fun delete(id: Long): Flow<Unit>
 
 }
