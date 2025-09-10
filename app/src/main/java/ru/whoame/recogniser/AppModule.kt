@@ -7,6 +7,11 @@ import ru.whoame.recogniser.data.database.databaseModule
 import ru.whoame.recogniser.data.datasource.datasourceModule
 import ru.whoame.recogniser.data.repository.repositoryModule
 import ru.whoame.recogniser.ui.RecogniserAppViewModel
+import ru.whoame.recogniser.ui.dialog.DeleteRecognisedItemViewModel
+import ru.whoame.recogniser.ui.dialog.factory.DeleteRecognisedItemDefaultsFactory
+import ru.whoame.recogniser.ui.dialog.factory.DeleteRecognisedItemStateFactory
+import ru.whoame.recogniser.ui.dialog.handler.DeleteRecognisedItemDomainEventHandler
+import ru.whoame.recogniser.ui.dialog.handler.DeleteRecognisedItemUiEventHandler
 import ru.whoame.recogniser.ui.screen.recognisedlist.RecognisedListViewModel
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.factory.ListScreenDefaultsFactory
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.factory.ListScreenStateFactory
@@ -27,6 +32,14 @@ val appModule = module {
             stateFactory = ListScreenStateFactory(),
             uiEventHandler = ListScreenUiEventHandler(),
             domainEventHandler = ListScreenDomainEventHandler(get()),
+        )
+    }
+    viewModel { holder ->
+        DeleteRecognisedItemViewModel(
+            defaultsFactory = DeleteRecognisedItemDefaultsFactory(holder.get()),
+            stateFactory = DeleteRecognisedItemStateFactory(),
+            uiEventHandler = DeleteRecognisedItemUiEventHandler(),
+            domainEventHandler = DeleteRecognisedItemDomainEventHandler(get()),
         )
     }
 }
