@@ -1,5 +1,6 @@
 package ru.whoame.recogniser.ui.composable.recognisedobjectcard
 
+import androidx.annotation.FloatRange
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,9 @@ import ru.whoame.recogniser.R
 import ru.whoame.recogniser.ui.DarkLightPreviews
 import ru.whoame.recogniser.ui.composable.model.RecognisedObjectUiModel
 import ru.whoame.recogniser.ui.theme.RecogniserTheme
+
+/** 40% of the card width to trigger deletion **/
+private const val DELETION_THRESHOLD = 0.4f
 
 /**
  * Variant of [RecognisedObjectCard] that supports swipe-to-delete interaction.
@@ -50,7 +54,7 @@ fun RecognisedObjectSwipeToDeleteCard(
             }
             false
         },
-        positionalThreshold = { distance -> distance * 0.4f },
+        positionalThreshold = { distance -> distance * DELETION_THRESHOLD },
     )
     SwipeToDismissBox(
         state = swipeToDismissBoxState,
@@ -58,29 +62,8 @@ fun RecognisedObjectSwipeToDeleteCard(
         enableDismissFromEndToStart = !isExpanded,
         modifier = modifier,
         backgroundContent = {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = stringResource(R.string.delete_item_content_description),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(MaterialTheme.shapes.medium)
-                    .background(
-                        color = lerp(
-                            start = MaterialTheme.colorScheme.background,
-                            stop = MaterialTheme.colorScheme.errorContainer,
-                            // Workaround. If you move the element a bit, it will return 1f and the red background will be visible.
-                            fraction = swipeToDismissBoxState.let { state ->
-                                val progress = state.progress
-                                if (state.targetValue != SwipeToDismissBoxValue.Settled || progress != 1f) {
-                                    state.progress
-                                } else {
-                                    0f
-                                }
-                            },
-                        ),
-                    )
-                    .wrapContentSize(Alignment.CenterEnd)
-                    .padding(dimensionResource(R.dimen.padding_medium)),
+            BackgroundDeleteIcon(
+                backgroundColorFraction = swipeToDismissBoxState.getFraction(),
             )
         },
     ) {
@@ -90,6 +73,52 @@ fun RecognisedObjectSwipeToDeleteCard(
             onClick = onClick,
         )
     }
+}
+
+/**
+ * Displays a delete icon with an animated background color that changes based on swipe progress.
+ *
+ * @param backgroundColorFraction Progress fraction between 0.0 and 1.0 that determines
+ * the background color interpolation from normal background to error container color.
+ * @param modifier Optional [Modifier] for this composable.
+ **/
+@Composable
+private fun BackgroundDeleteIcon(
+    @FloatRange(0.0, 1.0) backgroundColorFraction: Float,
+    modifier: Modifier = Modifier,
+) {
+    val backgroundColor = lerp(
+        start = MaterialTheme.colorScheme.background,
+        stop = MaterialTheme.colorScheme.errorContainer,
+        fraction = backgroundColorFraction,
+    )
+    val iconModifier = Modifier
+        .fillMaxSize()
+        .clip(MaterialTheme.shapes.medium)
+        .background(backgroundColor)
+        .wrapContentSize(Alignment.CenterEnd)
+        .padding(dimensionResource(R.dimen.padding_medium))
+    Icon(
+        imageVector = Icons.Default.Delete,
+        contentDescription = stringResource(R.string.delete_item_content_description),
+        modifier = modifier.then(iconModifier),
+    )
+}
+
+/**
+ * Gets the current swipe progress as a fraction between 0 and 1.
+ *
+ * @return The progress fraction, or 0 if the dismiss box is settled and not animating.
+ **/
+private fun SwipeToDismissBoxState.getFraction(): Float = if (
+    targetValue != SwipeToDismissBoxValue.Settled ||
+    // Workaround. If you move the element a bit, it will return 1f and the red background will be visible.
+    progress != 1f
+) {
+    val fraction = progress / DELETION_THRESHOLD
+    if (fraction > 1f) 1f else fraction
+} else {
+    0f
 }
 
 @DarkLightPreviews
