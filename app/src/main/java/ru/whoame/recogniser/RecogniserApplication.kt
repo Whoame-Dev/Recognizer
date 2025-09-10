@@ -15,7 +15,7 @@ class RecogniserApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@RecogniserApplication)
-            modules(appModules)
+            modules(appModule)
         }
     }
 
