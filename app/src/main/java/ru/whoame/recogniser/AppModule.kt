@@ -17,6 +17,7 @@ import ru.whoame.recogniser.ui.screen.recognisedlist.state.factory.ListScreenDef
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.factory.ListScreenStateFactory
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.handler.ListScreenDomainEventHandler
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.handler.ListScreenUiEventHandler
+import ru.whoame.recogniser.ui.screen.recognizer.RecognizerViewModel
 
 val appModule = module {
     includes(
@@ -42,4 +43,5 @@ val appModule = module {
             domainEventHandler = DeleteRecognisedItemDomainEventHandler(get()),
         )
     }
+    viewModel { RecognizerViewModel() }
 }
