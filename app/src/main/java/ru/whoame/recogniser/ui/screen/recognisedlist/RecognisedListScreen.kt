@@ -21,9 +21,11 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntSize
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import ru.whoame.recogniser.R
 import ru.whoame.recogniser.ui.DarkLightScreenPreviews
+import ru.whoame.recogniser.ui.base.collectSideEffect
 import ru.whoame.recogniser.ui.composable.ImageWithTitleAndMessageColumn
 import ru.whoame.recogniser.ui.composable.RecognisedObjectLazyColumn
 import ru.whoame.recogniser.ui.composable.ScreenTopBar
@@ -32,10 +34,9 @@ import ru.whoame.recogniser.ui.composable.model.RecognisedObjectLoadingUiModel
 import ru.whoame.recogniser.ui.composable.model.RecognisedObjectUiModel
 import ru.whoame.recogniser.ui.composable.recognisedobjectcard.RecognisedObjectCard
 import ru.whoame.recogniser.ui.composable.recognisedobjectcard.RecognisedObjectCardState
+import ru.whoame.recogniser.ui.dialog.DeleteRecognisedItemDialog
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.model.ListScreenSideEffect
 import ru.whoame.recogniser.ui.theme.RecogniserTheme
-import ru.whoame.recogniser.ui.viewmodel.utils.collectAsState
-import ru.whoame.recogniser.ui.viewmodel.utils.collectSideEffect
 
 @Composable
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
@@ -44,13 +45,11 @@ fun RecognisedListScreen(
     modifier: Modifier = Modifier,
     viewModel: RecognisedListViewModel = koinViewModel(),
 ) {
-    val state by viewModel.collectAsState()
+    val state by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
     viewModel.collectSideEffect { effect ->
         when (effect) {
-            is ListScreenSideEffect.DeleteItem -> {
-                // ToDo Need to call a dialog to confirm deletion
-            }
+            is ListScreenSideEffect.DeleteItem -> DeleteRecognisedItemDialog(effect.item, onBackClick)
         }
     }
 

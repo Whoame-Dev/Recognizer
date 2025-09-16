@@ -2,7 +2,7 @@ package ru.whoame.recogniser.ui.screen.recognisedlist.state.factory
 
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.model.ListScreenDomainEvent
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.model.ListScreenState
-import ru.whoame.recogniser.ui.viewmodel.contracts.BaseDefaultsFactory
+import ru.whoame.state_machine.contract.BaseDefaultsFactory
 
 class ListScreenDefaultsFactory : BaseDefaultsFactory<ListScreenState, ListScreenDomainEvent> {
 

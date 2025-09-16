@@ -2,8 +2,9 @@ package ru.whoame.recogniser.ui.screen.recognisedlist.state.handler
 
 import kotlinx.coroutines.flow.Flow
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.model.*
-import ru.whoame.recogniser.ui.viewmodel.handler.BaseUiEventHandler
 import ru.whoame.recogniser.utils.flowOf
+import ru.whoame.recogniser.utils.valueOrNull
+import ru.whoame.state_machine.handler.BaseUiEventHandler
 
 class ListScreenUiEventHandler :
     BaseUiEventHandler<ListScreenState, ListScreenSideEffect, ListScreenUiEvent, ListScreenDomainEvent>() {
@@ -17,8 +18,12 @@ class ListScreenUiEventHandler :
         state.copy(selectedItemId = id)
     }
 
-    private suspend fun deleteClick(id: Long) = reduceSideEffect {
-        ListScreenSideEffect.DeleteItem(id)
-    }
+    private suspend fun deleteClick(id: Long) = state.list.valueOrNull()
+        ?.find { it.id == id }
+        ?.let { item ->
+            reduceSideEffect {
+                ListScreenSideEffect.DeleteItem(item)
+            }
+        }
 
 }

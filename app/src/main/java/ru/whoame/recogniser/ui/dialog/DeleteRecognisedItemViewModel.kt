@@ -5,7 +5,7 @@ import ru.whoame.recogniser.ui.dialog.factory.DeleteRecognisedItemStateFactory
 import ru.whoame.recogniser.ui.dialog.handler.DeleteRecognisedItemDomainEventHandler
 import ru.whoame.recogniser.ui.dialog.handler.DeleteRecognisedItemUiEventHandler
 import ru.whoame.recogniser.ui.dialog.model.*
-import ru.whoame.recogniser.ui.viewmodel.StateMachineViewModel
+import ru.whoame.recogniser.ui.base.StateMachineViewModel
 
 class DeleteRecognisedItemViewModel(
     defaultsFactory: DeleteRecognisedItemDefaultsFactory,
