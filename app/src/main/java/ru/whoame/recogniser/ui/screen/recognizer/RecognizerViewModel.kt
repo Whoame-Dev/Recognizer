@@ -15,11 +15,8 @@ import androidx.camera.core.SurfaceOrientedMeteringPointFactory
 import androidx.camera.core.SurfaceRequest
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.lifecycle.awaitInstance
-import androidx.camera.viewfinder.compose.MutableCoordinateTransformer
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.graphics.Matrix
-import androidx.compose.ui.graphics.setFrom
 import androidx.compose.ui.graphics.toComposeRect
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
