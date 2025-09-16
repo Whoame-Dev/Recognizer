@@ -1,4 +1,4 @@
-package ru.whoame.recogniser.ui.viewmodel.utils
+package ru.whoame.state_machine.utils
 
 /**
  * DSL marker annotation for transaction sender builders.

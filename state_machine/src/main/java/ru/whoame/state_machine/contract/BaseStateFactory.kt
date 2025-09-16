@@ -1,4 +1,4 @@
-package ru.whoame.recogniser.ui.viewmodel.contracts
+package ru.whoame.state_machine.contract
 
 /**
  * Base factory for converting internal state to UI state.
