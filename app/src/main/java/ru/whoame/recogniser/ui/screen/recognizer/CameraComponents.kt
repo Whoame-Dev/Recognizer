@@ -43,7 +43,7 @@ import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import java.util.UUID
 
-@androidx.annotation.OptIn(ExperimentalCamera2Interop::class)
+@OptIn(ExperimentalCamera2Interop::class)
 @Composable
 fun CameraPreviewContent(
   viewModel: RecognizerViewModel,
@@ -162,11 +162,9 @@ fun FaceIndicator(
         transformationInfo = transformationInfo,
         uiToBufferCoordinateTransformer = coordinateTransformer
       )
-
       // Fill the whole space with the color
       drawRect(spotlightColor)
       // Then extract each face and make it transparent
-
       uiFaceRects.forEach { faceRect ->
         drawRect(
           Brush.radialGradient(
