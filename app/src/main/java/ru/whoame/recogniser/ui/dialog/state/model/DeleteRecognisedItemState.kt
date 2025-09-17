@@ -1,4 +1,4 @@
-package ru.whoame.recogniser.ui.dialog.model
+package ru.whoame.recogniser.ui.dialog.state.model
 
 import ru.whoame.recogniser.model.RecognisedObject
 import ru.whoame.recogniser.utils.Resource
