@@ -17,8 +17,7 @@ import ru.whoame.recogniser.ui.theme.RecogniserTheme
 @Composable
 fun RecogniserApp() = RecogniserTheme {
   Scaffold { innerPaddings ->
-    val backStack =
-      rememberNavBackStack(Destination.MenuScreen)
+    val backStack = rememberNavBackStack(Destination.MenuScreen)
 
     val screenModifier = Modifier
       .fillMaxSize()
