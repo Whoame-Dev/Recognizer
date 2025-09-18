@@ -4,6 +4,7 @@ import ru.whoame.recogniser.model.RecognisedObject
 import ru.whoame.recogniser.utils.Resource
 
 data class ListScreenState(
-    val list: Resource<List<RecognisedObject>> = Resource.Loading(),
-    val selectedItemId: Long? = null,
+  val list: Resource<List<RecognisedObject>> = Resource.Loading(),
+  val selectedItemId: Long? = null,
+  val itemToDelete: RecognisedObject? = null,
 )
