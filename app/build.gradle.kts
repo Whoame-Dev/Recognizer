@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -67,6 +68,11 @@ dependencies {
     implementation(libs.androidx.material3.window.size)
     implementation(libs.androidx.material3.adaptive)
     implementation(libs.androidx.material.icons.extended)
+
+    implementation(libs.androidx.navigation.ui)
+    implementation(libs.androidx.navigation.runtime)
+
+    implementation(libs.kotlinx.serialization.core)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
