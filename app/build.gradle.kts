@@ -25,7 +25,10 @@ android {
         release {
             isShrinkResources = true
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
         }
     }
     compileOptions {
@@ -80,6 +83,8 @@ dependencies {
 
     implementation(libs.koin)
     implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.annotations)
+    ksp(libs.koin.ksp.compiler)
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
 
