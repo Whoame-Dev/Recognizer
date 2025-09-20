@@ -90,7 +90,7 @@ private fun RecognisedListScreenStateless(
   when {
     isError -> ImageWithTitleAndMessageColumn(
       painter = rememberVectorPainter(Icons.Default.ErrorOutline),
-      title = stringResource(R.string.recognised_object_list_empty_title),
+      title = stringResource(R.string.default_error),
       message = stringResource(R.string.recognised_object_list_error_message),
       modifier = Modifier.padding(paddingMedium),
     )

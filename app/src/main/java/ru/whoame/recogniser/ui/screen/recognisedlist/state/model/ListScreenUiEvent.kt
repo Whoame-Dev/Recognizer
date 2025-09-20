@@ -6,6 +6,6 @@ sealed interface ListScreenUiEvent {
 
   data class DeleteClick(val id: Long) : ListScreenUiEvent
 
-  object DismissDeleteDialog : ListScreenUiEvent
+  data class DismissDeleteDialog(val isItemDeleted: Boolean) : ListScreenUiEvent
 
 }

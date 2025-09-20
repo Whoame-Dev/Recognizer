@@ -30,8 +30,8 @@ class RecognisedListViewModel(
     ListScreenUiEvent.DeleteClick(id)
   }
 
-  fun dismissDeleteDialog() = launchEvent {
-    ListScreenUiEvent.DismissDeleteDialog
+  fun dismissDeleteDialog(isItemDeleted: Boolean) = launchEvent {
+    ListScreenUiEvent.DismissDeleteDialog(isItemDeleted)
   }
 
 }
