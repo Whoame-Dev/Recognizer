@@ -3,9 +3,13 @@
 
     <string name="app_name">Recogniser</string>
 
+    <!-- Common strings -->
+    <string name="default_error">Something went wrong</string>
+
     <!-- Common action -->
     <string name="action_cancel">Cancel</string>
     <string name="action_delete">Delete</string>
+    <string name="action_done">Done</string>
 
     <!-- Animation label -->
     <string name="shimmer_transition_label">Shimmer transition</string>
@@ -21,11 +25,12 @@
     <string name="recognised_object_list_title">Recognised items</string>
     <string name="recognised_object_list_empty_title">There\'s nothing here</string>
     <string name="recognised_object_list_empty_message">Recognise something first</string>
-    <string name="recognised_object_list_error_title">Something went wrong</string>
     <string name="recognised_object_list_error_message">Try reinstalling the application or deleting data</string>
 
     <!-- Delete recognised item dialog -->
     <string name="delete_recognised_item_dialog_title">Deleting a saved item</string>
     <string name="delete_recognised_item_dialog_text">You\'re about to delete \"%1$s\". Are you sure?</string>
+    <string name="delete_recognised_item_dialog_error_title">Deleting a saved item failed</string>
+    <string name="delete_recognised_item_dialog_success_title">Saved item deleted</string>
 
 </resources>

@@ -75,3 +75,4 @@ val surfaceContainerHighDark = Color(0xFF262B2E)
 val surfaceContainerHighestDark = Color(0xFF313539)
 
 val Transparent = Color(0x00FFFFFF)
+val SuccessGreen = Color(0xFF4BB543)
