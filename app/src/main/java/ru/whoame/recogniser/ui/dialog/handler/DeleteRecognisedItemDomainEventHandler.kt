@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.map
 import ru.whoame.recogniser.data.repository.RecognisedObjectRepository
 import ru.whoame.recogniser.ui.dialog.model.DeleteRecognisedItemDomainEvent
 import ru.whoame.recogniser.ui.dialog.model.DeleteRecognisedItemState
-import ru.whoame.recogniser.ui.viewmodel.handler.BaseDomainEventHandler
 import ru.whoame.recogniser.utils.Resource
+import ru.whoame.state_machine.handler.BaseDomainEventHandler
 
 class DeleteRecognisedItemDomainEventHandler(
     private val repository: RecognisedObjectRepository,

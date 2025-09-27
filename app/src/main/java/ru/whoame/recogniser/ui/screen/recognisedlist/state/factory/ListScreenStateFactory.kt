@@ -5,9 +5,9 @@ import ru.whoame.recogniser.ui.composable.model.RecognisedObjectLoadingUiModel
 import ru.whoame.recogniser.ui.composable.model.RecognisedObjectUiModel
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.model.ListScreenState
 import ru.whoame.recogniser.ui.screen.recognisedlist.state.model.ListScreenUiState
-import ru.whoame.recogniser.ui.viewmodel.contracts.BaseStateFactory
 import ru.whoame.recogniser.utils.DateFormatter
 import ru.whoame.recogniser.utils.Resource
+import ru.whoame.state_machine.contract.BaseStateFactory
 
 class ListScreenStateFactory : BaseStateFactory<ListScreenState, ListScreenUiState> {
 

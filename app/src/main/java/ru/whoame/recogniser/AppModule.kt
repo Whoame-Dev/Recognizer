@@ -1,12 +1,10 @@
 package ru.whoame.recogniser
 
 import org.koin.core.module.dsl.viewModel
-import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import ru.whoame.recogniser.data.database.databaseModule
 import ru.whoame.recogniser.data.datasource.datasourceModule
 import ru.whoame.recogniser.data.repository.repositoryModule
-import ru.whoame.recogniser.ui.RecogniserAppViewModel
 import ru.whoame.recogniser.ui.dialog.DeleteRecognisedItemViewModel
 import ru.whoame.recogniser.ui.dialog.factory.DeleteRecognisedItemDefaultsFactory
 import ru.whoame.recogniser.ui.dialog.factory.DeleteRecognisedItemStateFactory
@@ -25,7 +23,6 @@ val appModule = module {
         repositoryModule,
     )
 
-    viewModelOf(::RecogniserAppViewModel)
     viewModel {
         RecognisedListViewModel(
             defaultsFactory = ListScreenDefaultsFactory(),

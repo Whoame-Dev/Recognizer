@@ -4,8 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import ru.whoame.recogniser.ui.dialog.model.DeleteRecognisedItemDomainEvent
 import ru.whoame.recogniser.ui.dialog.model.DeleteRecognisedItemState
 import ru.whoame.recogniser.ui.dialog.model.DeleteRecognisedItemUiEvent
-import ru.whoame.recogniser.ui.viewmodel.handler.BaseUiEventHandler
 import ru.whoame.recogniser.utils.flowOf
+import ru.whoame.state_machine.handler.BaseUiEventHandler
 
 class DeleteRecognisedItemUiEventHandler :
     BaseUiEventHandler<DeleteRecognisedItemState, Nothing, DeleteRecognisedItemUiEvent, DeleteRecognisedItemDomainEvent>() {
