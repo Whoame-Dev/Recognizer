@@ -43,7 +43,7 @@ class StateMachineTest {
             stateFactory = TestStateFactory(),
             onCreated = {
                 onCreatedCalled = true
-            }
+            },
         )
 
         assertTrue(onCreatedCalled)
