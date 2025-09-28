@@ -2,7 +2,10 @@ package ru.whoame.recogniser.ui.dialog
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -27,7 +30,7 @@ fun DeleteRecognisedItemDialog(
     DeleteRecognisedItemDialogStateless(
         name = state.itemName,
         isLoading = state.isLoading,
-        onDeleteRequest = { viewModel.delete(state.itemId) },
+        onConfirmRequest = { viewModel.confirm() },
         onDismissRequest = onDismissRequest,
     )
 }
@@ -36,7 +39,7 @@ fun DeleteRecognisedItemDialog(
 private fun DeleteRecognisedItemDialogStateless(
     name: String,
     isLoading: Boolean,
-    onDeleteRequest: () -> Unit,
+    onConfirmRequest: () -> Unit,
     onDismissRequest: () -> Unit,
 ) = AlertDialog(
     title = {
@@ -65,7 +68,7 @@ private fun DeleteRecognisedItemDialogStateless(
             Text(
                 text = stringResource(R.string.action_delete),
                 color = MaterialTheme.colorScheme.error,
-                modifier = Modifier.clickable(onClick = onDeleteRequest),
+                modifier = Modifier.clickable(onClick = onConfirmRequest),
             )
         } else {
             CircularProgressIndicator()

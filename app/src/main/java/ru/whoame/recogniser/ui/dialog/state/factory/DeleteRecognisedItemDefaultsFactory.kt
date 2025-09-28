@@ -1,8 +1,8 @@
-package ru.whoame.recogniser.ui.dialog.factory
+package ru.whoame.recogniser.ui.dialog.state.factory
 
 import ru.whoame.recogniser.model.RecognisedObject
-import ru.whoame.recogniser.ui.dialog.model.DeleteRecognisedItemDomainEvent
-import ru.whoame.recogniser.ui.dialog.model.DeleteRecognisedItemState
+import ru.whoame.recogniser.ui.dialog.state.model.DeleteRecognisedItemDomainEvent
+import ru.whoame.recogniser.ui.dialog.state.model.DeleteRecognisedItemState
 import ru.whoame.state_machine.contract.BaseDefaultsFactory
 
 class DeleteRecognisedItemDefaultsFactory(

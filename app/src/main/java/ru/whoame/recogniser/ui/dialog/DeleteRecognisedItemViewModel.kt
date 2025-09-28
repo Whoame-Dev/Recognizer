@@ -1,11 +1,14 @@
 package ru.whoame.recogniser.ui.dialog
 
-import ru.whoame.recogniser.ui.dialog.factory.DeleteRecognisedItemDefaultsFactory
-import ru.whoame.recogniser.ui.dialog.factory.DeleteRecognisedItemStateFactory
-import ru.whoame.recogniser.ui.dialog.handler.DeleteRecognisedItemDomainEventHandler
-import ru.whoame.recogniser.ui.dialog.handler.DeleteRecognisedItemUiEventHandler
-import ru.whoame.recogniser.ui.dialog.model.*
 import ru.whoame.recogniser.ui.base.StateMachineViewModel
+import ru.whoame.recogniser.ui.dialog.state.factory.DeleteRecognisedItemDefaultsFactory
+import ru.whoame.recogniser.ui.dialog.state.factory.DeleteRecognisedItemStateFactory
+import ru.whoame.recogniser.ui.dialog.state.handler.DeleteRecognisedItemDomainEventHandler
+import ru.whoame.recogniser.ui.dialog.state.handler.DeleteRecognisedItemUiEventHandler
+import ru.whoame.recogniser.ui.dialog.state.model.DeleteRecognisedItemDomainEvent
+import ru.whoame.recogniser.ui.dialog.state.model.DeleteRecognisedItemState
+import ru.whoame.recogniser.ui.dialog.state.model.DeleteRecognisedItemUiEvent
+import ru.whoame.recogniser.ui.dialog.state.model.DeleteRecognisedItemUiState
 
 class DeleteRecognisedItemViewModel(
     defaultsFactory: DeleteRecognisedItemDefaultsFactory,
@@ -19,8 +22,8 @@ class DeleteRecognisedItemViewModel(
     domainEventHandler = domainEventHandler,
 ) {
 
-    fun delete(id: Long) = launchEvent {
-        DeleteRecognisedItemUiEvent.Delete(id)
+    fun confirm() = launchEvent {
+        DeleteRecognisedItemUiEvent.Delete
     }
 
 }
