@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Recogniser"
 include(":app")
+include(":state_machine")
