@@ -48,13 +48,15 @@ import java.util.UUID
 fun CameraPreviewContent(
   viewModel: RecognizerViewModel,
   modifier: Modifier = Modifier,
-  lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+  lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
 ) {
   val surfaceRequest by viewModel.surfaceRequest.collectAsStateWithLifecycle()
   val sensorFaceRects by viewModel.sensorFaceRects.collectAsStateWithLifecycle()
   var autofocusRequest by remember { mutableStateOf(UUID.randomUUID() to Offset.Unspecified) }
-  val transformationInfo by
-  produceState<SurfaceRequest.TransformationInfo?>(null, surfaceRequest) {
+  val transformationInfo by produceState<SurfaceRequest.TransformationInfo?>(
+    initialValue = null,
+    key1 = surfaceRequest,
+  ) {
     try {
       surfaceRequest?.setTransformationInfoListener(Runnable::run) { transformationInfo ->
         value = transformationInfo
@@ -153,7 +155,7 @@ fun FaceIndicator(
   shouldSpotlightFaces: Boolean,
   sensorFaceRects: List<Rect>,
   transformationInfo: SurfaceRequest.TransformationInfo?,
-  coordinateTransformer: MutableCoordinateTransformer
+  coordinateTransformer: MutableCoordinateTransformer,
 ) {
   val spotlightColor = Color(0xDDE60991)
   AnimatedVisibility(shouldSpotlightFaces, enter = fadeIn(), exit = fadeOut()) {
