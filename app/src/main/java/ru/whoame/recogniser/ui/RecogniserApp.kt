@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
 import ru.whoame.recogniser.ui.screen.recognisedlist.RecognisedListScreen
+import ru.whoame.recogniser.ui.screen.recognizer.RecognizerScreen
 
 @Composable
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
@@ -23,6 +24,7 @@ fun RecogniserApp(
             .fillMaxSize()
             .padding(innerPaddings)
 
-        RecognisedListScreen({ /* Need to implement with navigation */ }, screenModifier)
+//        RecognisedListScreen({ /* Need to implement with navigation */ }, screenModifier)
+        RecognizerScreen({})
     }
 }

@@ -28,4 +28,8 @@
     <string name="delete_recognised_item_dialog_title">Deleting a saved item</string>
     <string name="delete_recognised_item_dialog_text">You\'re about to delete \"%1$s\". Are you sure?</string>
 
+    <!-- Camera permissions -->
+    <string name="camera_permission_ask_rationale">Whoops! Looks like we need your camera to work our magic! Don\'t worry, we just wanna see your awesome creation. Grant us permission and let\'s get this party started!</string>
+    <string name="camera_permission_ask">"Hi there! We need your camera to work our magic! ✨\nGrant us permission and let\'s get this party started! \uD83C\uDF89</string>
+
 </resources>
