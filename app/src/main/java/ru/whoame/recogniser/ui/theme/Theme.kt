@@ -101,6 +101,7 @@ fun RecogniserTheme(
     content: @Composable () -> Unit,
 ) = MaterialTheme(
     colorScheme = getColorScheme(isDynamicColor, isDarkTheme),
+    shapes = Shapes,
     typography = Typography,
     content = content,
 )

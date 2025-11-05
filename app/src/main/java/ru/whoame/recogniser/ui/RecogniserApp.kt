@@ -1,33 +1,21 @@
 package ru.whoame.recogniser.ui
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.koin.androidx.compose.koinViewModel
-import ru.whoame.recogniser.ui.theme.RecogniserTheme
+import ru.whoame.recogniser.ui.screen.recognisedlist.RecognisedListScreen
 
 @Composable
-fun RecogniserApp(
-    viewModel: RecogniserAppViewModel = koinViewModel(),
-) {
-    val name by viewModel.stateFlow.collectAsStateWithLifecycle()
-    RecogniserAppStateless(name)
-}
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
+fun RecogniserApp() {
+    Scaffold { innerPaddings ->
+        val screenModifier = Modifier
+            .fillMaxSize()
+            .padding(innerPaddings)
 
-@Composable
-private fun RecogniserAppStateless(name: String) = Scaffold { innerPaddings ->
-    Text(
-        text = "Hello $name!",
-        modifier = Modifier.padding(innerPaddings),
-    )
-}
-
-@DarkLightPreviews
-@Composable
-private fun RecogniserAppPreview() = RecogniserTheme {
-    RecogniserAppStateless("World")
+        RecognisedListScreen({ /* Need to implement with navigation */ }, screenModifier)
+    }
 }
